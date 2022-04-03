@@ -1,14 +1,22 @@
 import { useEffect } from "react";
+import GameImage from "./components/GameImage";
 import { getImageData } from "./firebase";
 
 function App() {
+
   useEffect(() => {
-    getImageData().then((data) => {
+    async function setData() {
+      const data = await getImageData("stage-1");
       console.log(data);
-    });
+    }
+    setData();
   });
 
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <GameImage />
+    </div>
+  );
 }
 
 export default App;

@@ -24,10 +24,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function getImageData() {
-  const docRef = doc(db, "image-data", "stage-1");
+async function getImageData(stage) {
+  const docRef = doc(db, "image-data", `${stage}`);
   const docSnap = await getDoc(docRef);
-  const data = await docSnap.data();
+  const data = docSnap.data();
   return data;
 }
 
