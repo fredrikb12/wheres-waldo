@@ -11,9 +11,29 @@
   padding: 0;
 }
 
+nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-around;
+  padding-right: 50px;
+  align-items: center;
+  height: 10vh;
+  border-bottom: 1px solid black;
+  box-shadow: 0px 4px 3px 0px rgb(194, 194, 194);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+}
+
 .image-container {
   position: relative;
-  width: 80%;
+  padding: 20px;
+  min-width: 60%;
+  max-width: 70vw;
   height: 200vh;
   background-color: rgb(231, 214, 165);
 }
@@ -21,7 +41,7 @@
 .selection-square {
   position: absolute;
   z-index: 1;
-  top: calc(var(--selection-y) - var(--selection-height-offset));
+  top: calc(var(--selection-y) - var(--selection-height-offset) - 10vh);
   left: calc(var(--selection-x) - var(--selection-width-offset));
   height: 70px;
   width: 70px;
