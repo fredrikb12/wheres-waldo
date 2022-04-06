@@ -28,22 +28,27 @@ function Game() {
     console.log(clickedCoordinates.x - 35 - 20);
     console.log(clickedCoordinates.y + 35 - 20);
     console.log(clickedCoordinates.y - 35 - 20);*/
-    console.log(clickedCoordinates.rect);
+    //console.log(clickedCoordinates.rect);
     const { rect } = clickedCoordinates;
+
+    console.log(yStart * rect.height);
+    console.log(rect);
+    console.log(window.scrollY);
 
     const charLeft = xStart * rect.width;
     const charRight = xEnd * rect.width;
     const charTop = yStart * rect.height;
     const charBot = yEnd * rect.height;
 
-    const selectLeft = clickedCoordinates.x - 35 - rect.left;
-    const selectRight = clickedCoordinates.x + 35 - rect.left;
-    const selectTop = clickedCoordinates.y - 35 - rect.top;
-    const selectBot = clickedCoordinates.y + 35 - rect.top;
-    console.log(charLeft < selectRight);
+    const selectLeft = clickedCoordinates.x - 35 - (window.scrollX + rect.left);
+    const selectRight =
+      clickedCoordinates.x + 35 - (window.scrollX + rect.left);
+    const selectTop = clickedCoordinates.y - 35 - (window.scrollY + rect.top);
+    const selectBot = clickedCoordinates.y + 35 - (window.scrollY + rect.top);
+    /* console.log(charLeft < selectRight);
     console.log(charRight > selectLeft);
     console.log(charTop < selectBot);
-    console.log(charBot > selectTop);
+    console.log(charBot > selectTop);*/
     console.log("charBot, selectTop", charBot, selectTop);
 
     if (
@@ -54,7 +59,8 @@ function Game() {
     ) {
       console.log("collision");
       setFoundCharacters((prevState) => {
-        return [...prevState, character];
+        return prevState;
+        //return [...prevState, character];
       });
     }
     /*if (

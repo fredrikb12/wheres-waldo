@@ -35,7 +35,8 @@ function GameImage({
             y: e.pageY,
             rect: e.target.getBoundingClientRect(),
           });
-          console.log("x: ", e.pageX, "y: ", e.pageY);
+          /*console.log("x: ", e.pageX, "y: ", e.pageY);
+          console.log(e);*/
           //TODO : figure out click coordinate stuff
           //console.log(domRect.)
 
