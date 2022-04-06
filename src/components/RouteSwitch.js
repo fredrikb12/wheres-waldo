@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Game from "../Game";
 import Homepage from "./Homepage";
@@ -8,7 +9,7 @@ function RouteSwitch() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route index element={<Homepage/>} />
+          <Route index element={<Homepage />} />
           <Route path="/game" element={<Game />} />
           <Route path="/leaderboard" element={<h1>Leaderboard</h1>} />
         </Route>

@@ -1,10 +1,18 @@
 import React from "react";
 import CharacterPopup from "./CharacterPopup";
 
-function UserSelection() {
+function UserSelection({
+  handleUserSelection,
+  foundCharacters,
+  gameCharacters,
+}) {
   return (
     <div className="selection-square">
-      <CharacterPopup />
+      <CharacterPopup
+        handleUserSelection={handleUserSelection}
+        foundCharacters={foundCharacters}
+        gameCharacters={gameCharacters}
+      />
     </div>
   );
 }

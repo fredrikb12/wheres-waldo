@@ -1,27 +1,109 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import GameImage from "./components/GameImage";
 import { getImageData } from "./firebase";
 
 function Game() {
   const [pageClicked, setPageClicked] = useState(0);
+  const [selectedImage, setSelectedImage] = useOutletContext();
+  const [characters, setCharacters] = useState([]);
+  const [foundCharacters, setFoundCharacters] = useState([]);
+  const [clickedCoordinates, setClickedCoordinates] = useState({});
 
   useEffect(() => {
     async function setData() {
       const data = await getImageData("stage-1");
-      console.log(data);
+      setCharacters([...data.characters]);
     }
     setData();
   }, []);
 
+  async function handleUserSelection(character) {
+    if (foundCharacters.includes(character)) return;
+    const data = await getImageData(selectedImage);
+    const { xStart, xEnd, yStart, yEnd } = data.waldo;
+    //console.log(data);
+
+    /*console.log(clickedCoordinates.x + 35 - 20);
+    console.log(clickedCoordinates.x - 35 - 20);
+    console.log(clickedCoordinates.y + 35 - 20);
+    console.log(clickedCoordinates.y - 35 - 20);*/
+    console.log(clickedCoordinates.rect);
+    const { rect } = clickedCoordinates;
+
+    const charLeft = xStart * rect.width;
+    const charRight = xEnd * rect.width;
+    const charTop = yStart * rect.height;
+    const charBot = yEnd * rect.height;
+
+    const selectLeft = clickedCoordinates.x - 35 - rect.left;
+    const selectRight = clickedCoordinates.x + 35 - rect.left;
+    const selectTop = clickedCoordinates.y - 35 - rect.top;
+    const selectBot = clickedCoordinates.y + 35 - rect.top;
+    console.log(charLeft < selectRight);
+    console.log(charRight > selectLeft);
+    console.log(charTop < selectBot);
+    console.log(charBot > selectTop);
+    console.log("charBot, selectTop", charBot, selectTop);
+
+    if (
+      charLeft < selectRight &&
+      charRight > selectLeft &&
+      charTop < selectBot &&
+      charBot > selectTop
+    ) {
+      console.log("collision");
+      setFoundCharacters((prevState) => {
+        return [...prevState, character];
+      });
+    }
+    /*if (
+        xStart < clickedCoordinates.x + 35 &&
+        xEnd > clickedCoordinates.x - 35 &&
+        yStart < clickedCoordinates.y + 35 &&
+        yEnd > clickedCoordinates.y - 35
+      ) {
+        console.log("collision");
+        setFoundCharacters((prevState) => {
+          return [...prevState, character];
+        });
+      } else {
+        console.log("no collision");
+      }*/
+  }
+
+  function updateCoordinates(coords) {
+    setClickedCoordinates((prev) => {
+      //console.log(coords);
+      return coords;
+    });
+  }
+
   return (
-    <div
-      className="Homepage"
-      onClick={(e) => {
-        if (!e.target.classList.contains("image-container"))
-          setPageClicked((prevState) => prevState + 1);
-      }}
-    >
-      <GameImage pageClicked={pageClicked} />
+    <div>
+      {selectedImage !== undefined ? (
+        <div
+          className="Homepage"
+          onClick={(e) => {
+            if (
+              !e.target.classList.contains("game-image") &&
+              !e.target.classList.contains("selection-square")
+            )
+              setPageClicked((prevState) => prevState + 1);
+          }}
+        >
+          <GameImage
+            pageClicked={pageClicked}
+            selectedImage={selectedImage}
+            handleUserSelection={handleUserSelection}
+            updateCoordinates={updateCoordinates}
+            foundCharacters={foundCharacters}
+            gameCharacters={characters}
+          />
+        </div>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </div>
   );
 }

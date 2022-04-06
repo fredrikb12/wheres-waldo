@@ -31,11 +31,17 @@ nav {
 
 .image-container {
   position: relative;
-  padding: 20px;
-  min-width: 60%;
-  max-width: 70vw;
+  width: clamp(1000px, 90%, 1900px);
   height: 200vh;
   background-color: rgb(231, 214, 165);
+}
+
+.image-container > img {
+  max-width: 100%;
+}
+
+.stage-selection > img {
+  max-width: 40vw;
 }
 
 .selection-square {
@@ -45,7 +51,7 @@ nav {
   left: calc(var(--selection-x) - var(--selection-width-offset));
   height: 70px;
   width: 70px;
-  border: 4px dashed rgb(121, 153, 61);
+  border: 4px dashed rgb(218, 44, 44);
   background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -57,6 +63,7 @@ nav {
   width: 250px;
   background-color: rgb(119, 136, 182);
   list-style: none;
+  border: 1px solid rgb(26, 26, 26);
 }
 
 .popup:hover {
@@ -66,11 +73,26 @@ nav {
 .character-name {
   font-size: 2rem;
   padding: 5px;
+  border: none;
   border-bottom: 1px solid rgba(75, 77, 63, 0.705);
   text-align: center;
   letter-spacing: 6px;
+  background-color: transparent;
+  width: 100%;
 }
 
 .character-name:last-child {
   border-bottom: none;
+}
+
+.character-name.found {
+  text-decoration: line-through;
+}
+
+.character-name:hover {
+  cursor: pointer;
+}
+
+.character-name.found:hover {
+  cursor: not-allowed;
 }

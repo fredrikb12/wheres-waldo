@@ -1,19 +1,32 @@
 import React from "react";
 import uniqid from "uniqid";
 
-function CharacterPopup() {
+function CharacterPopup({
+  handleUserSelection,
+  foundCharacters,
+  gameCharacters,
+}) {
   const characters = ["Waldo", "Wizard", "Hecker"];
 
   return (
     <ul className="popup">
-      {characters.map((character) => {
+      {gameCharacters.map((character) => {
         return (
-          <li
-            className="character-name"
-            key={uniqid()}
-            onClick={(e) => console.log(`clicked ${character}`)}
-          >
-            {character}
+          <li key={uniqid()}>
+            <button
+              disabled={foundCharacters.includes(character) ? true : false}
+              className={
+                foundCharacters.includes(character)
+                  ? "character-name found"
+                  : "character-name"
+              }
+              onClick={(e) => {
+                //console.log(`clicked ${character}`);
+                handleUserSelection(character);
+              }}
+            >
+              {character}
+            </button>
           </li>
         );
       })}

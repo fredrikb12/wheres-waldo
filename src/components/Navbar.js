@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 function Navbar() {
+  const [selectedImage, setSelectedImage] = useState("retrowave-bg");
+
+  function handleImageSelection(name) {
+    console.log(name);
+    setSelectedImage(name);
+  }
+
   return (
     <div className="page-wrapper">
       <nav>
@@ -17,7 +24,7 @@ function Navbar() {
         </ul>
       </nav>
       <main className="main-wrapper">
-        <Outlet />
+        <Outlet context={[selectedImage, handleImageSelection]} />
       </main>
     </div>
   );
