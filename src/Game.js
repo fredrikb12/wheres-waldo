@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import GameImage from "./components/GameImage";
 import { getDB, getImageData, makeSubmission } from "./firebase";
 import { doc, setDoc } from "firebase/firestore/lite";
@@ -115,13 +115,14 @@ function Game() {
                 <h1>Congrats! You found all the characters.</h1>
                 <h2>
                   Final time: {(endTime - (endTime % 1000)) / 1000}.
-                  {endTime % 1000 }
-                   {" "}seconds!
+                  {endTime % 1000} seconds!
                 </h2>
                 <label>
                   Name: <input type="text" id="name-input" />
                 </label>
-                <button type="submit">Submit</button>
+                <Link to={`/leaderboard/${selectedImage}`}>
+                  <button type="submit">Submit</button>
+                </Link>
               </form>
             </div>
           ) : null}
