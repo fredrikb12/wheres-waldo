@@ -6,7 +6,9 @@ import {
   getDocs,
   getDoc,
   doc,
+  setDoc,
 } from "firebase/firestore/lite";
+import uniqid from "uniqid";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,4 +33,25 @@ async function getImageData(stage) {
   return data;
 }
 
-export { getImageData };
+async function makeSubmission(stage, time, name) {
+  if (name === undefined) name = "no-name";
+  const data = await getImageData(stage);
+  const submissions = [
+    ...data.submissions,
+    { id: uniqid(), name: name, time: time },
+  ];
+  const characters = [...data.characters];
+  const waldo = { ...data.waldo };
+
+  await setDoc(doc(db, "image-data", stage), {
+    submissions,
+    characters,
+    waldo,
+  });
+}
+
+export function getDB() {
+  return db;
+}
+
+export { getImageData, makeSubmission };

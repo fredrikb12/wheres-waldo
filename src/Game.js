@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import GameImage from "./components/GameImage";
-import { getImageData } from "./firebase";
+import { getDB, getImageData, makeSubmission } from "./firebase";
+import { doc, setDoc } from "firebase/firestore/lite";
 
 function Game() {
   const [pageClicked, setPageClicked] = useState(0);
@@ -10,6 +11,9 @@ function Game() {
   const [characters, setCharacters] = useState([]);
   const [foundCharacters, setFoundCharacters] = useState([]);
   const [clickedCoordinates, setClickedCoordinates] = useState({});
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -18,21 +22,11 @@ function Game() {
   useEffect(() => {
     async function setData() {
       const data = await getImageData(selectedImage);
-      console.log(data);
       setCharacters([...data.characters]);
       setNavCharacters([...data.characters]);
     }
     setData();
-    console.log(selectedImage);
-  }, [selectedImage]);
-
-  useEffect(() => {
-    async function submitTime() {
-      if (characters.length === foundCharacters.length && characters.length > 0)
-        console.log("all characters found");
-    }
-    submitTime();
-  }, [characters, foundCharacters]);
+  }, [selectedImage, setCharacters, setNavCharacters]);
 
   useEffect(() => {
     const chars = characters.filter((char) => {
@@ -45,18 +39,8 @@ function Game() {
     if (foundCharacters.includes(character)) return;
     const data = await getImageData(selectedImage);
     const { xStart, xEnd, yStart, yEnd } = data[character.toLowerCase()];
-    //console.log(data);
 
-    /*console.log(clickedCoordinates.x + 35 - 20);
-    console.log(clickedCoordinates.x - 35 - 20);
-    console.log(clickedCoordinates.y + 35 - 20);
-    console.log(clickedCoordinates.y - 35 - 20);*/
-    //console.log(clickedCoordinates.rect);
     const { rect } = clickedCoordinates;
-
-    console.log(yStart * rect.height);
-    console.log(rect);
-    console.log(window.scrollY);
 
     const charLeft = xStart * rect.width;
     const charRight = xEnd * rect.width;
@@ -68,11 +52,6 @@ function Game() {
       clickedCoordinates.x + 35 - (window.scrollX + rect.left);
     const selectTop = clickedCoordinates.y - 35 - (window.scrollY + rect.top);
     const selectBot = clickedCoordinates.y + 35 - (window.scrollY + rect.top);
-    /* console.log(charLeft < selectRight);
-    console.log(charRight > selectLeft);
-    console.log(charTop < selectBot);
-    console.log(charBot > selectTop);*/
-    console.log("charBot, selectTop", charBot, selectTop);
 
     if (
       charLeft < selectRight &&
@@ -82,28 +61,26 @@ function Game() {
     ) {
       console.log("collision");
       setFoundCharacters((prevState) => {
-        //return prevState;
         return [...prevState, character];
       });
     }
-    /*if (
-        xStart < clickedCoordinates.x + 35 &&
-        xEnd > clickedCoordinates.x - 35 &&
-        yStart < clickedCoordinates.y + 35 &&
-        yEnd > clickedCoordinates.y - 35
-      ) {
-        console.log("collision");
-        setFoundCharacters((prevState) => {
-          return [...prevState, character];
-        });
-      } else {
-        console.log("no collision");
-      }*/
   }
+
+  useEffect(() => {
+    setStartTime(new Date().getTime());
+  }, [setStartTime]);
+
+  useEffect(() => {
+    if (
+      foundCharacters.length === characters.length &&
+      characters.length !== 0
+    ) {
+      setEndTime(new Date().getTime() - startTime);
+    }
+  }, [foundCharacters, characters, startTime]);
 
   function updateCoordinates(coords) {
     setClickedCoordinates((prev) => {
-      //console.log(coords);
       return coords;
     });
   }
@@ -112,7 +89,7 @@ function Game() {
     <div>
       {selectedImage !== undefined ? (
         <div
-          className="Homepage"
+          className="game-container"
           onClick={(e) => {
             if (
               !e.target.classList.contains("game-image") &&
@@ -121,6 +98,33 @@ function Game() {
               setPageClicked((prevState) => prevState + 1);
           }}
         >
+          {endTime !== 0 && !hasSubmitted ? (
+            <div className="submission-container">
+              <form
+                className="submission-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  makeSubmission(
+                    selectedImage,
+                    endTime,
+                    document.getElementById("name-input").value
+                  );
+                  setHasSubmitted(true);
+                }}
+              >
+                <h1>Congrats! You found all the characters.</h1>
+                <h2>
+                  Final time: {(endTime - (endTime % 1000)) / 1000}.
+                  {endTime % 1000 }
+                   {" "}seconds!
+                </h2>
+                <label>
+                  Name: <input type="text" id="name-input" />
+                </label>
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          ) : null}
           <GameImage
             pageClicked={pageClicked}
             selectedImage={selectedImage}
