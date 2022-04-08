@@ -18,7 +18,7 @@ function GameImage({
     });
   }, [pageClicked]);
 
-  //if(selectedImage === undefined) selectedImage = "wheres-waldo-1";
+  //if(selectedImage === undefined) selectedImage = "stage-1";
 
   return (
     <div className="image-container">

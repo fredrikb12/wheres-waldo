@@ -40,8 +40,22 @@ nav {
   max-width: 100%;
 }
 
-.stage-selection > img {
-  max-width: 40vw;
+.stage-selection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  padding: 15px;
+  gap: 15px;
+}
+
+.stage-link {
+  display: flex;
+  justify-content: center;
+}
+
+.stage-link:hover {
+  background-color: rgba(255, 213, 136, 0.596);
 }
 
 .selection-square {
@@ -70,6 +84,10 @@ nav {
   cursor: pointer;
 }
 
+.popup > li:last-child > .character-name {
+  border-bottom: none;
+}
+
 .character-name {
   font-size: 2rem;
   padding: 5px;
@@ -79,10 +97,6 @@ nav {
   letter-spacing: 6px;
   background-color: transparent;
   width: 100%;
-}
-
-.character-name:last-child {
-  border-bottom: none;
 }
 
 .character-name.found {
@@ -95,4 +109,9 @@ nav {
 
 .character-name.found:hover {
   cursor: not-allowed;
+}
+
+.stage-image {
+  width: clamp(500px, 50%, 1000px);
+  border: 5px solid black;
 }

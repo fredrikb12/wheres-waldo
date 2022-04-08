@@ -12,16 +12,25 @@ function Game() {
 
   useEffect(() => {
     async function setData() {
-      const data = await getImageData("stage-1");
+      const data = await getImageData(selectedImage);
       setCharacters([...data.characters]);
     }
     setData();
-  }, []);
+  }, [selectedImage]);
+
+  useEffect(() => {
+    async function submitTime() {
+      if (characters.length === foundCharacters.length && characters.length > 0)
+        console.log("all characters found");
+    }
+
+    submitTime();
+  }, [characters, foundCharacters]);
 
   async function handleUserSelection(character) {
     if (foundCharacters.includes(character)) return;
     const data = await getImageData(selectedImage);
-    const { xStart, xEnd, yStart, yEnd } = data.waldo;
+    const { xStart, xEnd, yStart, yEnd } = data[character.toLowerCase()];
     //console.log(data);
 
     /*console.log(clickedCoordinates.x + 35 - 20);
@@ -59,8 +68,8 @@ function Game() {
     ) {
       console.log("collision");
       setFoundCharacters((prevState) => {
-        return prevState;
-        //return [...prevState, character];
+        //return prevState;
+        return [...prevState, character];
       });
     }
     /*if (
