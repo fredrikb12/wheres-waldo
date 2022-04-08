@@ -6,7 +6,8 @@ import stageTwo from "../images/stage-2.jpg";
 import stageThree from "../images/stage-3.jpg";
 
 function Homepage() {
-  const [selectedImage, handleImageSelection] = useOutletContext();
+  const [selectedImage, handleImageSelection, setNavCharacters] =
+    useOutletContext();
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
@@ -27,6 +28,10 @@ function Homepage() {
   useEffect(() => {
     console.log(characters);
   }, [characters]);
+
+  useEffect(() => {
+    setNavCharacters([]);
+  }, [setNavCharacters]);
 
   return (
     <div className="stage-selection">

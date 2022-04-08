@@ -5,7 +5,8 @@ import { getImageData } from "./firebase";
 
 function Game() {
   const [pageClicked, setPageClicked] = useState(0);
-  const [selectedImage, setSelectedImage] = useOutletContext();
+  const [selectedImage, setSelectedImage, setNavCharacters] =
+    useOutletContext();
   const [characters, setCharacters] = useState([]);
   const [foundCharacters, setFoundCharacters] = useState([]);
   const [clickedCoordinates, setClickedCoordinates] = useState({});
@@ -19,6 +20,7 @@ function Game() {
       const data = await getImageData(selectedImage);
       console.log(data);
       setCharacters([...data.characters]);
+      setNavCharacters([...data.characters]);
     }
     setData();
     console.log(selectedImage);
@@ -29,9 +31,15 @@ function Game() {
       if (characters.length === foundCharacters.length && characters.length > 0)
         console.log("all characters found");
     }
-
     submitTime();
   }, [characters, foundCharacters]);
+
+  useEffect(() => {
+    const chars = characters.filter((char) => {
+      return !foundCharacters.includes(char);
+    });
+    setNavCharacters([...chars]);
+  }, [characters, foundCharacters, setNavCharacters]);
 
   async function handleUserSelection(character) {
     if (foundCharacters.includes(character)) return;
