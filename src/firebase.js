@@ -42,12 +42,35 @@ async function makeSubmission(stage, time, name) {
   ];
   const characters = [...data.characters];
   const waldo = { ...data.waldo };
+  const characterData = {};
+  for (let key in data) {
+    if (key !== "characters" && key !== "submissions") {
+      characterData[key] = data[key];
+    }
+  }
 
-  await setDoc(doc(db, "image-data", stage), {
-    submissions,
-    characters,
-    waldo,
-  });
+  if (stage === "stage-1") {
+    await setDoc(doc(db, "image-data", stage), {
+      submissions,
+      characters,
+      waldo,
+    });
+  } else if (stage === "stage-2") {
+    await setDoc(doc(db, "image-data", stage), {
+      submissions,
+      characters,
+      waldo,
+      "woman burning trousers": characterData["woman burning trousers"],
+    });
+  } else if (stage === "stage-3") {
+    await setDoc(doc(db, "image-data", stage), {
+      submissions,
+      characters,
+      waldo,
+      wilma: characterData["wilma"],
+      wizard: characterData["wizard"],
+    });
+  }
 }
 
 export function getDB() {
