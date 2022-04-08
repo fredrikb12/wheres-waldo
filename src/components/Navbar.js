@@ -4,10 +4,8 @@ import { Link, Outlet } from "react-router-dom";
 function Navbar() {
   const [selectedImage, setSelectedImage] = useState("stage-1");
   const [characters, setNavCharacters] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
 
   function handleImageSelection(name) {
-    console.log(name);
     setSelectedImage(name);
   }
 
@@ -18,8 +16,6 @@ function Navbar() {
         {characters.length === 0 ? null : (
           <ul
             className="menu"
-            onMouseOut={() => setShowDropdown((prev) => !prev)}
-            onMouseOver={() => setShowDropdown((prev) => !prev)}
           >
             {characters.length === 0 ? (
               <p>Stage Selection</p>

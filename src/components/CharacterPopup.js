@@ -6,7 +6,6 @@ function CharacterPopup({
   foundCharacters,
   gameCharacters,
 }) {
-  const characters = ["Waldo", "Wizard", "Hecker"];
   if (gameCharacters !== undefined) {
     return (
       <ul className="popup">
@@ -21,7 +20,6 @@ function CharacterPopup({
                     : "character-name"
                 }
                 onClick={(e) => {
-                  //console.log(`clicked ${character}`);
                   handleUserSelection(character);
                 }}
               >

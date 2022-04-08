@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Game from "../Game";
 import Homepage from "./Homepage";
 import Leaderboard from "./Leaderboard";

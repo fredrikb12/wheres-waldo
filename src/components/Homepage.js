@@ -26,10 +26,6 @@ function Homepage() {
   }, [setCharacters]);
 
   useEffect(() => {
-    console.log(characters);
-  }, [characters]);
-
-  useEffect(() => {
     setNavCharacters([]);
   }, [setNavCharacters]);
 

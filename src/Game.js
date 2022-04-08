@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import GameImage from "./components/GameImage";
-import { getDB, getImageData, makeSubmission } from "./firebase";
-import { doc, setDoc } from "firebase/firestore/lite";
+import { getImageData, makeSubmission } from "./firebase";
 
 function Game() {
   const [pageClicked, setPageClicked] = useState(0);
@@ -58,7 +57,6 @@ function Game() {
       charTop < selectBot &&
       charBot > selectTop
     ) {
-      console.log("collision");
       setFoundCharacters((prevState) => {
         return [...prevState, character];
       });
