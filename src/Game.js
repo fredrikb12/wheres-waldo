@@ -13,7 +13,6 @@ function Game() {
   const [clickedCoordinates, setClickedCoordinates] = useState({});
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -98,7 +97,7 @@ function Game() {
               setPageClicked((prevState) => prevState + 1);
           }}
         >
-          {endTime !== 0 && !hasSubmitted ? (
+          {endTime !== 0 ? (
             <div className="submission-container">
               <form
                 className="submission-form"
@@ -109,7 +108,7 @@ function Game() {
                     endTime,
                     document.getElementById("name-input").value
                   );
-                  setHasSubmitted(true);
+                  document.getElementById("name-input").value = "";
                 }}
               >
                 <h1>Congrats! You found all the characters.</h1>
@@ -120,9 +119,17 @@ function Game() {
                 <label>
                   Name: <input type="text" id="name-input" />
                 </label>
-                <Link to={`/leaderboard/${selectedImage}`}>
-                  <button type="submit">Submit</button>
-                </Link>
+
+                <div className="sub-button-container">
+                  <button type="submit" className="sub-button">
+                    Submit
+                  </button>
+                  <Link to={`/leaderboard/${selectedImage}`}>
+                    <button type="button" className="sub-button">
+                      Go to leaderboard
+                    </button>
+                  </Link>
+                </div>
               </form>
             </div>
           ) : null}

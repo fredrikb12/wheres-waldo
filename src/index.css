@@ -228,13 +228,24 @@ nav {
   align-items: center;
 }
 
-.submission-form > button {
-  width: 100px;
+.sub-button-container {
+  display: flex;
+  gap: 15px;
+}
+
+.sub-button {
+  width: 200px;
   padding: 5px;
   background-color: rgb(177, 140, 92);
   border: 1px solid rgb(136, 136, 136);
   border-radius: 5px;
   font-size: 1.2rem;
+}
+
+.sub-button:hover {
+  cursor: pointer;
+  background-color: hsl(35, 36%, 30%);
+  color: white;
 }
 
 .submission-form > label,
@@ -247,12 +258,6 @@ nav {
 #name-input {
   border: 1px solid rgb(165, 165, 165);
   font-size: 1.1rem;
-}
-
-.submission-form > button:hover {
-  cursor: pointer;
-  background-color: hsl(35, 36%, 30%);
-  color: white;
 }
 
 .leaderboard {
@@ -287,4 +292,3 @@ nav {
   background-color: hsl(201, 37%, 15%);
   color: rgb(255, 245, 230);
 }
-
