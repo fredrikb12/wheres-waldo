@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 function Navbar() {
-  const [selectedImage, setSelectedImage] = useState("retrowave-bg");
+  const [selectedImage, setSelectedImage] = useState("stage-1");
 
   function handleImageSelection(name) {
     console.log(name);

@@ -11,6 +11,10 @@
   padding: 0;
 }
 
+.main-wrapper {
+  background-color: rgb(243, 243, 243);
+}
+
 nav {
   position: relative;
   z-index: 1;
@@ -32,12 +36,17 @@ nav {
 .image-container {
   position: relative;
   width: clamp(1000px, 90%, 1900px);
-  height: 200vh;
+  padding: 50px 20px;
+  border-radius: 12px;
   background-color: rgb(231, 214, 165);
 }
 
 .image-container > img {
   max-width: 100%;
+}
+
+.game-image:hover {
+  cursor: pointer;
 }
 
 .stage-selection {
@@ -52,6 +61,8 @@ nav {
 .stage-link {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 100px;
 }
 
 .stage-link:hover {
@@ -88,13 +99,22 @@ nav {
   border-bottom: none;
 }
 
+.selection-list {
+  width: 250px;
+  background-color: rgb(119, 136, 182);
+  list-style: none;
+  border: 1px solid rgb(26, 26, 26);
+  text-decoration: none;
+  color: black;
+}
+
 .character-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 5px;
   border: none;
   border-bottom: 1px solid rgba(75, 77, 63, 0.705);
   text-align: center;
-  letter-spacing: 6px;
+  letter-spacing: 1px;
   background-color: transparent;
   width: 100%;
 }
@@ -112,6 +132,6 @@ nav {
 }
 
 .stage-image {
-  width: clamp(500px, 50%, 1000px);
+  width: clamp(300px, 50%, 1000px);
   border: 5px solid black;
 }

@@ -11,11 +11,17 @@ function Game() {
   const [clickedCoordinates, setClickedCoordinates] = useState({});
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
     async function setData() {
       const data = await getImageData(selectedImage);
+      console.log(data);
       setCharacters([...data.characters]);
     }
     setData();
+    console.log(selectedImage);
   }, [selectedImage]);
 
   useEffect(() => {
