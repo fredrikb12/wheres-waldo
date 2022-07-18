@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import GameImage from "./components/GameImage";
 import { getImageData, makeSubmission } from "./firebase";
 
@@ -12,6 +12,8 @@ function Game() {
   const [clickedCoordinates, setClickedCoordinates] = useState({});
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
+
+  const nav = useNavigate();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -105,7 +107,10 @@ function Game() {
                     selectedImage,
                     endTime,
                     document.getElementById("name-input").value
-                  );
+                  ).then(() => {
+                    nav(`/leaderboard/${selectedImage}`);
+                  });
+
                   document.getElementById("name-input").value = "";
                 }}
               >
