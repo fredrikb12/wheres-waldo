@@ -2,7 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 function LeaderboardHome() {
   return (
-    <div className="">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <h1>Leaderboard</h1>
       <div>
         <Link to="/leaderboard/stage-1">
