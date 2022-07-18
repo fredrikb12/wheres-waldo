@@ -4,7 +4,7 @@ A web application rendition of the classic "puzzle".
 
 Penultimate project in the Javascript section of the NodeJS path in [The Odin Project](https://www.theodinproject.com).
 
-You may find project specifications and other details on the [project page].(https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app)
+You may find project specifications and other details on the [project page](https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app).
 
 ## Demo
 
@@ -43,6 +43,7 @@ All in all, it was one of the more challenging projects to date; the complexity 
 ## Contact
 
 Foole#9692 on Discord
+
 
 ## Developer Portfolio
 
